@@ -1,0 +1,57 @@
+<div class="menu">
+        <div class="menu1" id="dienthoai">
+            <h5>ĐIỆN THOẠI</h5>
+            <div class="menu2">
+                <a href="/dtdd-apple-iphone" data-id="80" data-name="iphone (apple)" class="hinh"><img src="https://cdn.tgdd.vn/Brand/1/iPhone-(Apple)42-b_52.jpg"></a>
+                <a href="/dtdd-samsung" data-id="2" data-name="samsung" class="hinh"><img src="https://cdn.tgdd.vn/Brand/1/Samsung42-b_25.jpg"></a>
+                <a href="/dtdd-oppo" data-id="1971" data-name="oppo" class=" "><img src="https://cdn.tgdd.vn/Brand/1/OPPO42-b_5.jpg"></a>
+                <a href="/dtdd-vivo" data-id="2236" data-name="vivo" class=" "><img src="https://cdn.tgdd.vn/Brand/1/Vivo42-b_50.jpg"></a>
+                <a href="/dtdd-xiaomi" data-id="2235" data-name="xiaomi" class=" "><img src="https://cdn.tgdd.vn/Brand/1/Xiaomi42-b_45.jpg"></a>
+                <a href="/dtdd-realme" data-id="17201" data-name="realme" class=" "><img src="https://cdn.tgdd.vn/Brand/1/Realme42-b_37.png"></a>
+                
+                <a href="/dtdd-vsmart" data-id="17566" data-name="vsmart" class="hide "><img src="https://cdn.tgdd.vn/Brand/1/Vsmart42-b_40.png"></a>
+                    
+                <a href="/dtdd-nokia" data-id="1" data-name="nokia" class="hide "><img src="https://cdn.tgdd.vn/Brand/1/Nokia42-b_21.jpg"></a>
+                <a href="/dtdd-huawei" data-id="104" data-name="huawei" class="hide "><img src="https://cdn.tgdd.vn/Brand/1/Huawei42-b_30.jpg"></a>
+                <a href="/dtdd-mobell" data-id="19" data-name="mobell" class="hide "><img src="https://cdn.tgdd.vn/Brand/1/Mobell42-b_19.jpg"></a>
+                <a href="/dtdd-itel" data-id="5332" data-name="itel" class="hide "><img src="https://cdn.tgdd.vn/Brand/1/Itel42-b_54.jpg"></a>
+                <a href="/dtdd-masstel" data-id="4832" data-name="masstel" class="hide "><img src="https://cdn.tgdd.vn/Brand/1/Masstel42-b_0.png"></a>
+                <a href="/dtdd-energizer" data-id="20673" data-name="energizer" class="hide "><img src="https://cdn.tgdd.vn/Brand/1/Energizer42-b_32.jpg"></a>
+        </div>
+        </div>
+        <div class="menu1" id="maytinhbang">
+            <h5>MÁY TÍNH BẢNG</h5>
+            
+        </div>
+        <div class="menu1" id="phukien">
+            <h5>PHỤ KIỆN</h5>
+            
+    </div>
+ <div id="qc">
+        <div id="hinh_qc">
+            <img src="https://images.fpt.shop/unsafe/fit-in/800x300/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2021/2/28/637501368315889721_F-H1_800x300.png" id="quangcao">
+        </div>
+    </div>
+    
+    
+    
+    <script>
+        var hinh = [];
+        hinh[0] = "https://images.fpt.shop/unsafe/fit-in/800x300/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2021/2/28/637501368315889721_F-H1_800x300.png" ;
+        hinh[1] = "https://images.fpt.shop/unsafe/fit-in/800x300/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2021/2/28/637501532950069971_F_H1_800x300.png";
+        hinh[2] = "https://images.fpt.shop/unsafe/fit-in/800x300/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2021/2/27/637500277566842786_F_H1_800x300_hotsale.png";
+        hinh[3] = "https://images.fpt.shop/unsafe/fit-in/800x300/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2021/3/1/637501915916426465_F_H1_800x300.png";
+        hinh[4] = "https://images.fpt.shop/unsafe/fit-in/800x300/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2021/2/28/637501473141950021_F_H1_800x300.png";
+
+        var index = 0;
+        var a = setInterval(() => {
+            index = index + 1;
+            if(index>4){
+                index=0;
+            }
+            document.getElementById('quangcao').setAttribute('src', hinh[index]);
+        }, 3000);
+        
+
+
+    </script>

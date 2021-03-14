@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Upload Product</title>
+</head>
+<body>
+    <form action="../serverside/admin_upload_product.php" method="POST" enctype="multipart/form-data">
+        <table>
+            <tr>
+                <td>Tên sản phẩm</td>
+                <td><input style="width: 100%" type="text" name="productName"/></td>
+            </tr>
+            <tr>
+                <td>Giá sản phẩm</td>
+                <td><input style="width: 100%" type="text" name="productPrice"/></td>
+            </tr>
+            <tr>
+                <td>Chi tiết sản phẩm</td>
+                <td>
+                    <textarea name="productDetail" style="width: 100%;height: 200px;">
+
+                    </textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>Tồn kho</td>
+                <td><input style="width: 100%" type="number" name="productStorage"/></td>
+            </tr>
+            <tr>
+                <td>Màu sản phẩm</td>
+                <td><input style="width: 100%" type="text" name="productColor"/></td>
+            </tr>
+            <tr>
+                <td>RAM</td>
+                <td><input style="width: 100%" type="text" name="productRam"/></td>
+            </tr>
+            <tr>
+                <td>ROM</td>
+                <td><input style="width: 100%" type="text" name="productRom"/></td>
+            </tr>
+            <tr>
+                <td>Hình ảnh sản phẩm</td>
+                <td><input type="file" multiple="multiple" name="productImage[]"/></td>
+            </tr>
+        </table>
+        <input type="submit" value="Upload"/>
+    </form>
+</body>
+</html>
