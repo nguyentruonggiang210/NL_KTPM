@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="0.0150" tests="1" failures="1">
+  <testsuite name="Root Suite" timestamp="2021-03-26T03:57:12" tests="0" time="0.0000" failures="0">
+  </testsuite>
+  <testsuite name="Some demo tests" timestamp="2021-03-26T03:57:12" tests="1" file="N:\Web\Test_Nodejs\test.js" time="0.0150" failures="1">
+    <testcase name="Some demo tests adds two numbers together" time="0.0150" classname="adds two numbers together">
+      <failure message="The expression evaluated to a falsy value:
+
+  assert(2 + 4 == 5)
+" type="AssertionError"><![CDATA[AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert(2 + 4 == 5)
+
+    at Context.<anonymous> (test.js:5:9)
+    at processImmediate (internal/timers.js:461:21)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

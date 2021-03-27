@@ -1,0 +1,25 @@
+{
+  "name": "test_nodejs",
+  "version": "1.0.0",
+  "description": "hello",
+  "main": "app",
+  "scripts": {
+    "test": "mocha 'test.js'",
+    "start": "nodemon app.js"
+  },
+  "author": "Giang",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "crypto": "^1.0.1",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "md5": "^2.3.0",
+    "mocha": "^8.3.2",
+    "mocha-junit-reporter": "^2.0.0",
+    "mongodb": "^3.6.5",
+    "mongoose": "^5.12.2",
+    "nodemon": "^2.0.7",
+    "sha256": "^0.2.0"
+  }
+}
