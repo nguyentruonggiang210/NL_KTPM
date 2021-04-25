@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Add Product</title>
+    </head>
+    <body>
+        <form action="/admin/addproduct" method="POST" enctype="multipart/form-data" id="form1">
+            <!--Thong tin-->
+            <h1>Thông tin:</h1>
+            <input type="text" name="madt" id="madt" placeholder="Ma dien thoai" onchange="thongbao()"><br>
+            <input type="text" name="tendt"  placeholder="Ten dien thoai"><br><!---->
+            <label for="hinh">Hinh anh:</label>
+            <input type="file" name="hinhmota" multiple accept="image/*" id="hinh"><br>
+            <textarea name="mota" cols="50" rows="10" placeholder="Nhap mo ta"></textarea><br>
+            <label for="tenhang">Hang:</label>
+            <select name="hang" id="tenhang">
+                <% hang.forEach(function(hang){%>
+                <option value="<%- hang._id %>"><%- hang.Ten_H %></option>
+                <% }) %>
+            </select><br>
+
+            <div id="thongso">
+                <!--Thong so-->
+                <h1>Thông số:</h1>
+                <input type="text" name="manhinh" placeholder="Man hinh"><br>
+                <input type="text" name="camtruoc" placeholder="Camera truoc"><br>
+                <input type="text" name="camsau" placeholder="Camera sau"><br>
+                <input type="text" name="cpu" placeholder="CPU"><br>
+                <input type="text" name="sim" placeholder="Sim"><br>
+                <input type="number" name="pin" min="1" placeholder="Pin"><br>
+                <label for="hdh">He Dieu Hanh:</label>
+                <select name="hdh" id="hdh">
+                    <option value="Android">Android</option>
+                    <option value="IOS">IOS</option>
+                </select><br>
+            </div>
+
+            <!--chi tiet-->
+            <h1>Chi tiết:</h1>
+            <label for="tenram">Ram:</label>
+            <select name="ram" id="tenram">
+                <% ram.forEach(function(ram){%>
+                    <option value="<%- ram._id %>"><%- ram.Ram + "Gb" %></option>
+                <% }) %>
+            </select><br>
+            <label for="tenrom">Rom:</label>
+            <select name="rom" id="tenrom">
+                <% rom.forEach(function(rom){%>
+                    <option value="<%- rom._id %>"><%- rom.Rom + "Gb" %></option>
+                <% }) %>
+            </select><br>
+            <input type="number" name="soluong" min="1" placeholder="Nhap so luong"><br>
+            <input type="number" name="giamua" min="1" placeholder="Gia mua"><br>
+            <input type="number" name="giaban" min="1" placeholder="Gia ban"><br>
+            <label for="ngay">Ngay nhap:</label>
+            <input type="date" name="ngaynhap" id="ngay"><br>
+            <input type="text" name="nguoinhap" placeholder="Ten nguoi nhap"><br>
+            <label for="tenmau">Mau:</label>
+            <select name="mau" id="tenmau">
+                <% mau.forEach(function(mau){%>
+                    <option value="<%- mau._id %>"><%- mau.Mau %></option>
+                <% }) %>
+            </select><br>   
+            <input type="file" name="hinhmau" multiple accept="image/*"> <br><br>
+            <input type="submit" value="Them">
+        </form>
+
+        <!--kiem tra thong so-->
+        <script>
+            function thongbao() {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("thongso").innerHTML = this.responseText;
+                    }
+                };
+                var madt = document.getElementById("madt").value;
+                xhttp.open("GET", "/admin/getdetail/"+madt, true);
+                xhttp.send();
+            }
+        </script>
+
+
+        
+        
+    </body>
+</html>

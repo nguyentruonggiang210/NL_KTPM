@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" type='text/css' href="/CSS/style.css">
+    <link rel="stylesheet" type='text/css' href="/CSS/user_infor.css">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/920d6b8d66.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/scripts/bootstrap-filestyle.min.js"></script>
+    <!--  -->
+    <title>DNG thông tin cá nhân</title>
+</head>
+<body>
+    <%- include('navbar.ejs') %>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col col-md-4">
+                <ul class="list-group user_infor_lg">
+                    <li class="list-group-item"><a href="/user/information/user_info">Thông tin tài khoản</a></li>
+                    <li class="list-group-item"><a href="/user/information/change_password">Đổi mật khẩu</a></li>
+                    <li class="list-group-item"><a href="/user/information/history">Điện thoại đã mua</a></li>
+                  </ul>
+            </div>
+            <% if(type == 0) { %>
+                <%- include('user_infor_display.ejs') %>
+            <% }else if(type == 1){ %>
+                <%- include('user_infor_changepass.ejs') %>
+            <% }else if(type == 2){ %>
+                <%- include('user_infor_history.ejs') %>
+            <% } %>
+        </div>
+    </div>
+
+    <script>
+        // ngày
+        for(var i = 1; i <= 31;i++){
+            var option = document.createElement("option");
+            option.text  = "Ngày "+String(i);
+            option.value = String(i);
+            var date_select = document.getElementById("infor_date");
+            date_select.appendChild(option);
+        }
+
+        // tháng
+        for(var i = 1; i <= 12;i++){
+            var option = document.createElement("option");
+            option.text  = "Tháng "+String(i);
+            option.value = String(i);
+            var date_select = document.getElementById("infor_month");
+            date_select.appendChild(option);
+        }
+        // năm
+        var today = new Date(); 
+        for(var i = today.getFullYear(); i >= 1940;i--){
+            var option = document.createElement("option");
+            option.text  = "Năm "+String(i);
+            option.value = String(i);
+            var date_select = document.getElementById("infor_year");
+            date_select.appendChild(option);
+        }
+        document.getElementById("infor_date").value = "<%= date %>";
+        document.getElementById("infor_month").value = "<%= month %>";
+
+        document.getElementById("infor_year").value = "<%= year %>";
+    </script>
+    <script type="text/javascript" src="/scripts/main.js"></script>
+    <script type="text/javascript" src="/scripts/LoginHandle.js"></script>
+    <script type="text/javascript" src="/scripts/RegisterHandle.js"></script>
+    <script type="text/javascript" src="/scripts/userinfor_update.js"></script>
+</body>
+</html>

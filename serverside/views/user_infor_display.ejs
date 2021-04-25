@@ -1,0 +1,98 @@
+<div  class="col col-md-8"> 
+    <h2>Thông tin cá nhân</h2>
+    <form id="user_infor_form" class="userinforform">
+        <div>
+            <% if(obj.Hinhanh_nguoidung != ""){ %>
+                <img width="150px" height="220px" src="<%= obj.Hinhanh_nguoidung %>" class="img-fluid" alt="Avatar">
+            <% } else{%>
+                <img width="150px" height="220px" src="/images/no_account.png" class="img-fluid" alt="Avatar">
+            <% } %>
+            <label for="user_infor_image" class="btn"><i class="fas fa-camera"></i> Thay đổi ảnh đại diện </label>
+            <input id="user_infor_image" style="visibility:hidden;" type="file" style="margin-left: 5px;" accept="image/x-png,image/gif,image/jpeg"  data-buttonText="Thay đổi hình ảnh" />
+        </div>
+        <div class="form-group">
+            <!-- Họ tên -->
+            <label for="user_infor_name">Họ tên</label>
+            <input value="<%= obj.Ten_nguoidung %>" type="text" class="form-control" id="user_infor_name">
+        </div>
+        <div class="form-group">
+            <!-- Số điện thoại -->
+            <label for="user_infor_name">Số điện thoại</label>
+            <input value="<%= obj.Sdt_nguoidung %>" type="tel" class="form-control" id="user_infor_tel" pattern="[0]{1}[0-9]{9}">
+        </div>
+        <div class="form-group">
+            <!-- Email -->
+            <label for="user_infor_name">Email</label>
+            <input value="<%= obj.Email_nguoidung %>" type="email" class="form-control" id="user_infor_email">
+        </div>
+        <div class="form-group">
+            <!-- Địa chỉ -->
+            <label for="user_infor_name">Địa chỉ</label>
+            <input value="<%= obj.Diachi_nguoidung %>" type="text" class="form-control" id="user_infor_address">
+        </div>
+        <!-- Giới tính -->
+        <div class="form-group">
+            <label>Giới tính</label>
+            <br/>
+                <% if(obj.Gioitinh_nguoidung == "Nam"){%>
+                    <input checked class="form-check-input" value="Nam" type="radio" name="infor_gender" >
+                    <label class="form-check-label">
+                        Nam
+                    </label>
+                    <input  class="form-check-input" value="Nữ" type="radio" name="infor_gender" >
+                    <label class="form-check-label">
+                        Nữ
+                    </label>
+                    <input class="form-check-input" value="Khác" type="radio" name="infor_gender">
+                    <label class="form-check-label">
+                        Khác
+                    </label>
+                <% } else if(obj.Gioitinh_nguoidung == "Nữ"){ %>
+                    <input checked class="form-check-input" value="Nam" type="radio" name="infor_gender" >
+                    <label class="form-check-label">
+                        Nam
+                    </label>
+                    <input checked class="form-check-input" value="Nữ" type="radio" name="infor_gender" >
+                    <label class="form-check-label">
+                        Nữ
+                    </label>
+                    <input class="form-check-input" value="Khác" type="radio" name="infor_gender">
+                    <label class="form-check-label">
+                        Khác
+                    </label>
+                <% }else{ %>
+                    <input class="form-check-input" value="Nam" type="radio" name="infor_gender" >
+                    <label class="form-check-label">
+                        Nam
+                    </label>
+                    <input  class="form-check-input" value="Nữ" type="radio" name="infor_gender" >
+                    <label class="form-check-label">
+                        Nữ
+                    </label>
+                    <input checked class="form-check-input" value="Khác" type="radio" name="infor_gender">
+                    <label class="form-check-label">
+                        Khác
+                    </label>
+                <% } %>
+
+                
+        </div>
+        <!--Ngay sinh-->
+        <div class="row mt-2 ngaysinh form-group">
+            <label class="text-info">Ngày Sinh: </label>
+            <!--Ngay-->
+            <div class="form-group">
+                <select id="infor_date"  class="custom-select date_select" name="" tabindex="2">
+                        
+                </select>
+                <select id="infor_month"  class="custom-select date_select" name="" tabindex="4">
+
+                </select>
+                <select id="infor_year"  class="custom-select date_select" name="" tabindex="3">
+
+                </select>
+            </div>
+        </div>
+        <button style="margin: 20px 0;" type="submit" class="btn btn-primary">Thay đổi</button>
+      </form>
+</div>

@@ -1,0 +1,113 @@
+<div  class="col col-md-8"> 
+    <h2>Lịch sử mua hàng</h2>
+    <table class="table  table-bordered">
+        <tr>
+            <th>STT</th>
+            <th>Tổng giá trị đơn hàng</th>
+            <th>Ngày mua</th>
+        </tr>
+    <% data.forEach((e,index)=>{ %>   
+        <tr key="<%-e._id%>" class="customer_order_detail">
+            <td class="col col-md-1"><%-index+1%></td>
+            <td>Đơn hàng trị giá <%-e.Tongtien%> </td>
+            <td><%-e.Ngaylap_DH%></td>
+        </tr>
+    <% }) %>
+</table>
+<div id="model_order_detail" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <table class="table ">
+          <thead>
+            <tr>
+              <th scope="col col-md-1">STT</th>
+              <th scope="col">Sản phẩm</th>
+              <th scope="col col-md-1">Số lượng</th>
+              <th scope="col">Thành tiền</th>
+            </tr>
+          </thead>
+          <tbody id="table_order_detail">
+            
+          </tbody>
+          <tfoot>
+            <tr>
+              <td>Tổng tiền</td>
+              <td id="order_detail_total" colspan="3" style="text-align: center;">30000</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+</div>
+</div>
+<script>
+    function DisplayPrice(x){
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+    $('.customer_order_detail').on('click',GetOrderDetail);
+      var container_data = [];
+      var container_mobiles = [];
+      async function GetOrderDetail(){
+        var temp = document.getElementById('table_order_detail');
+        while (temp.firstChild) {
+          temp.removeChild(temp.lastChild);
+        }
+        var id_order = $(this).attr('key');
+        await $.ajax({
+          method:'POST',
+          url:'/admin/handler/getorderdetail',
+          data:{
+            id_order:id_order,
+          },
+          success:(data)=>{
+            var object = data.data;
+            container_data = object; 
+          },
+          error: (err)=>{
+            console.log(err);
+          }
+        });
+        
+        GetMobileDetail(container_data);
+        $('#model_order_detail').modal('toggle');
+      }
+      
+      async function GetMobileDetail(arr){
+        for(let j = 0; j < arr.length;j++){
+          await $.ajax({
+            method : 'POST',
+            url : '/admin/handler/getmobiledetail',
+            data:{
+              ID_DT: arr[j].mobiledetail.ID_DT,
+            },
+            success: (data) =>{
+              container_mobiles.push(data.data);
+            },
+            error : (err) =>{
+              console.log(err);
+            }
+          });
+        }
+        console.log(container_mobiles);
+        var total_price = 0;
+        for(let i = 0; i < container_data.length ; i++){
+          total_price += container_data[i].Thanhtien;
+          var tr = document.createElement('TR');
+          var stt = document.createElement('TD');
+          stt.innerHTML = i + 1;
+          var sanpham = document.createElement('TD');
+          sanpham.innerHTML = container_mobiles[i].Ten_DT;
+          var soluong = document.createElement('TD');
+          soluong.innerHTML = container_data[i].Soluong;
+          var thanhtien = document.createElement('TD');
+          thanhtien.innerHTML = container_data[i].Thanhtien + " ₫";
+          tr.appendChild(stt);
+          tr.appendChild(sanpham);
+          tr.appendChild(soluong);
+          tr.appendChild(thanhtien);
+          var temp = document.getElementById('table_order_detail');
+          temp.appendChild(tr);
+        }
+        document.getElementById('order_detail_total').innerHTML = DisplayPrice(total_price) + " ₫";
+      }
+</script>

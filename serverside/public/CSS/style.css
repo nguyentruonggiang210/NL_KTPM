@@ -1,0 +1,354 @@
+body {
+    background-image: url(../img/1\ used.jpg);
+    background-size: cover;
+}
+
+.civ {
+    background-color: whitesmoke;
+    border-radius: 10px;
+    padding: 0;
+}
+.account_area{
+    text-align: center;
+    position:relative;
+}
+#infor_logout_list{
+    display: none;
+    z-index: 100;
+    text-align: left;
+    left: 0;
+    width: 100%;
+    top: 100%;
+    font-size: 14px;
+}
+#infor_logout_list a{
+    text-decoration: none;
+    color: black;
+    bottom: 0;
+    left: 0;
+}
+
+#infor_logout_list li{
+    background-image: linear-gradient(to right,rgb(231, 221, 173),tomato);
+}
+
+.container {
+    background-color: whitesmoke;
+    border-radius: 10px;
+    margin: 20px auto;
+}
+
+.header {
+    background-image: linear-gradient(to right,rgb(231, 221, 173),tomato);
+    height: auto;
+    width: auto;
+    margin: 0;
+}
+
+.logotext {
+    font-size: medium;
+    text-shadow: black 1px 1px 3px;
+}
+
+.fa-gem {
+    text-align: center;
+}
+
+.title {
+    margin: auto 3%;
+    padding-top: 2%;
+    padding-bottom: 0;
+}
+
+i {
+    text-align: center;
+}
+
+h5 {
+    font-size: small;
+    text-align: center;
+}
+
+.menu {
+    background-color: rgba(224, 221, 221, 0.493);
+    margin: 0;
+    padding: 10px auto;
+    border-radius: 0 0 10px 10px;
+}
+
+.menu h5 {
+    color: black;
+    padding: 3% auto;
+}
+
+.menu .btn-lg {
+    text-align: center;
+    color: white;
+    font-size: large;
+    border-radius: 50%;
+}
+
+.menu .btn-lg:hover {
+    background-color: tomato;
+}
+
+.menuicon {
+    width: 140px;
+    border-radius: 50%;
+    margin: auto auto;
+}
+
+.fa-mobile-alt {
+    color: orangered;
+}
+
+.fa-tablet-alt {
+    color: orangered;
+}
+
+.fa-headphones-alt {
+    color: orangered;
+}
+
+.carousel-item .col-md-2 {
+    margin: auto;
+}
+
+.card {
+    width: 100% !important;
+}
+
+.card-title {
+    height: 2em;
+    font-size: 1.2vw;
+}
+
+.card-text {
+    text-align: center;
+    font-size: 100%;
+    font-weight: bold;
+}
+
+.khuyenmai {
+    margin: auto !important;
+}
+
+#carouselExampleControls2 .prev {
+    padding: 0 3%;
+    border-radius: 5%;
+    background-color: tomato;
+}
+
+#carouselExampleControls2 .next {
+    padding: 0 3%;
+    border-radius: 5%;
+    background-color: tomato;
+}
+
+#carouselExampleControls3 .prev {
+    padding: 0 3%;
+    border-radius: 5%;
+    background-color: tomato;
+}
+
+#carouselExampleControls3 .next {
+    padding: 0 3%;
+    border-radius: 5%;
+    background-color: tomato;
+}
+
+.carousel-item .btn-primary {
+    background-color: rgb(167, 46, 25);
+}
+
+.carousel-item .btn-info {
+    background-color: rgb(167, 46, 25);
+    color: white;
+}
+
+#hoten-dangky {
+    width: 338px !important;
+}
+
+.ngaysinh select {
+    width: 5em;
+}
+
+.phukien {
+    font-size: large;
+}
+
+.icon-phukien {
+    font-size: 8vw;
+    padding: auto;
+}
+
+#res_form{
+    margin: auto auto;
+    text-align:center;
+}
+#res_form .form-group{
+    margin: 0 auto !important;
+}
+#res_form label{
+    width: 100%;
+    text-align: left;
+    margin-left: 2%;
+}
+#res_form input{
+    width: 90% !important;
+    margin: 0 auto !important;
+}
+
+.date_select{
+    text-align-last:center;
+    margin: 2%;
+    width: 23% !important;
+}
+.res_notetification{
+    display: none;
+    text-align: left;
+    margin-left: 2%;
+}
+#register_popup:hover{
+    cursor: pointer;
+    color: black !important;
+    text-decoration: underline !important;
+}
+
+.footer{
+    width: 85%;
+    margin:10px auto;
+}
+
+.account_cart{
+
+    margin-left:0;
+}
+.myicon{
+    font-size: 20px;
+}
+
+.myicon:hover{
+    cursor: pointer;
+}
+.cart_icon,.bell_icon{
+    display: block;
+    position: relative;
+}
+.cart_icon:hover{cursor: pointer;}
+.bell_icon:hover{cursor: pointer;}
+.cart_icon span,.bell_icon span{
+    width: 15px;
+    height: 15px;
+    font-size: 15px;
+    border-radius: 50%;
+    background-color: white;
+    position: absolute;
+    top:-5px;
+}
+.mobile_area{
+    text-align: center;
+}
+#render_username{
+    overflow: hidden; 
+    white-space: nowrap;
+}
+#render_login{
+    overflow: hidden; 
+    white-space: nowrap;
+}
+@media only screen and (max-width:767px){
+    .account_area{
+        text-align: left;
+    }
+    .mobile_area{
+        text-align: left;
+    }
+    .mobile_area{
+        margin: 10px 0;
+    }
+    .account_area{
+        margin: 10px 0;
+    }
+     
+}
+
+#search_result{
+    z-index: 100;
+    position: absolute;
+    list-style-type: none;
+    display:none;
+    left: 0;
+    padding: 0;
+    top:100%;
+    width: 100%;
+}
+#search_result li{
+    margin: 0;
+    background-color: white;
+    border: 1px white solid;
+    height: 90px;
+}
+#search_result a{
+    margin: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: black;
+}
+#search_result li:hover{
+    background-color: #0275d8;
+    color: white;
+}
+#search_result li:hover a{
+    color: white;
+}
+
+.search_product_name{
+    font-size: 20px;
+    margin: 5px;
+}
+.search_product_price{
+    margin: 5px;
+    position: absolute;
+    bottom: 5px;
+}
+#search_result div{
+    height: 100%;
+    display: inline-block;
+}
+.search_result_left{
+   float: left; 
+   width: 80%;
+   position: relative;
+}
+.search_result_right{
+    float: right; 
+    text-align: right;
+    width: 20%;
+}
+#search_result img{
+    margin: 0;
+    height: 100%;
+    width: 60px;
+}
+
+hr {
+    border: none;
+    border-top: 1px double black;
+    color: black;
+    overflow: visible;
+    text-align: center;
+    height: 5px;
+}
+
+hr:after {
+    background: #fff;
+    content: 'Or';
+    padding: 0 4px;
+    position: relative;
+    top: -13px;
+}
+

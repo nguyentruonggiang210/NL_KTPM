@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" type='text/css' href="/CSS/style.css">
+    <link rel="stylesheet" type='text/css' href="/CSS/user_infor.css">
+    <link rel="stylesheet" type='text/css' href="/CSS/admin.css">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/920d6b8d66.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+
+    <!--  -->
+    <title>DNG Mobile</title>
+
+</head>
+<body>
+    <%- include('../navbar.ejs') %>
+    <div class="container">
+        <div class="row m-auto">
+            <h3>Cập nhật thông tin tài khoản</h3>
+    
+            <div class="col-md-4">
+                <div class="form-group">
+                    <form id="admin_change_role">
+                        <label>Tài khoản</label>
+                        <input type="text" name="admin_user_id" class="col-md-6 pt-1 pb-2 form-control" id="admin_change_user_id" disabled>
+                        <label>Loại tài khoản</label>
+                        <select  class="form-control" name="user_role" id="user_role">
+                            <option value="Nhân viên">Nhân Viên</option>
+                            <option value="Khách hàng">Khách hàng</option>
+                        </select>
+                        <label>Tên người dùng</label>
+                        <input type="text" class="col-md-6 pt-1 pb-2 form-control" id="admin_change_user_name" disabled>
+                        <label>Giới tính</label>
+                        <div>
+                            <input class="form-check-input" type="radio" name="gender" id="gioitinh_nam" value="Nam" disabled>
+                            <label class="form-check-label" for="exampleRadios1">
+                            Nam
+                            </label>
+                            <input class="form-check-input" type="radio" name="gender" id="gioitinh_nu" value="Nữ" disabled>
+                            <label class="form-check-label" for="exampleRadios2">
+                            Nữ
+                            </label>
+                            <input class="form-check-input" type="radio" name="gender" id="gioitinh_khac" value="Khác" disabled>
+                            <label class="form-check-label" for="exampleRadios2">
+                            Khác
+                            </label>
+                        </div>
+                        <label>Ngày sinh</label>
+                        <input type="text" class="col-md-6 pt-1 pb-2 form-control" id="admin_change_user_date" disabled>
+    
+                        <label>Số điện thoại</label>
+                        <input type="text" class="col-md-6 pt-1 pb-2 form-control" id="admin_change_user_tel" disabled>
+    
+                        <label>Email</label>
+                        <input type="text" class="col-md-6 pt-1 pb-2 form-control" id="admin_change_user_email" disabled>
+    
+                        <label>Địa chị</label>
+                        <input type="text" class="col-md-6 pt-1 pb-2 form-control" id="admin_change_user_address" disabled>
+    
+                        <label>Ngày tạo tài khoản</label>
+                        <input type="text" class="col-md-6 pt-1 pb-2 form-control" id="admin_change_user_date_create" disabled>
+    
+                        <input type="submit" class="btn btn-primary admin_control_button" value="Cập nhật">
+                        <!-- -->
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary admin_control_button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            Lịch sử thay đổi
+                        </button>
+                        <input type="reset" class="btn btn-danger admin_control_button" value="Hủy bỏ">
+                        <button class="btn btn-danger admin_control_button" onclick="DeleteAccount()">Xóa tài khoản</button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Lịch sử thay đổi</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table">
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Tài khoản được thay đổi</th>
+                                            <th>Nội dung</th>
+                                            <th>Ngày thay đổi</th>
+                                        </tr>
+                                        <% history.forEach((value,key)=>{  %>
+                                            <tr>
+                                                <td><%- key+1 %></td>
+                                                <td><%- value.Taikhoan_User %></td>
+                                                <td><%- value.Noidung_thaydoi %></td>
+                                                <td><%- value.Thoigian_thaydoi %></td>
+                                            </tr>
+                                        <% }) %>
+                                        
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
+                        <!-- -->
+    
+                        <div class="row mb-lg-5"></div>
+    
+                        <div class="row mb-lg-5"></div>
+                    </form>
+                </div>
+            </div>
+    
+            <div class="col-md-8">
+                <div>
+                    <h3>Danh sách tài khoản</h3>
+                </div>
+                <div style="display: none;" id="current_user"><%= current_user %></div>
+                <table id="example" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tài khoản</th>
+                            <th>Họ tên</th>
+                            <th class="col-md-2">Nhân viên</th>
+                            <th>Sdt</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% object.forEach((value,key) => { %>
+                            <% if(value.Taikhoan_TK !== "admin") {%>
+                            <tr key="<%- value.Taikhoan_TK %>">
+                                <td><%- key %></td>
+                                <td class="adminmanage_user_id"><%- value.Taikhoan_TK %></td>
+                                <td><%- value.Ten_nguoidung %></td>
+                                <% if(admin_arr[key]){ %>
+                                    <td class="col-md-2"><input type="checkbox" class="btn-checkbox" checked disabled /></td>
+                                <% } else{ %>
+                                    <td class="col-md-2"><input type="checkbox" class="btn-checkbox" disabled /></td>
+                                <% } %>
+                                <td><%- value.Sdt_nguoidung %></td>
+                            </tr>
+                        <% }}); %>
+                    </tbody>
+                </table>
+        </div>
+    </div>
+    </div>
+    <script>
+        var myModal = document.getElementById('myModal');
+        var myInput = document.getElementById('myInput');
+
+        myModal.addEventListener('shown.bs.modal', function () {
+            myInput.focus();
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable({
+                "aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
+                "iDisplayLength": 10});
+            });
+        function checkAll(bx) {
+            var cbs = document.getElementsByTagName('input');
+            for(var i=0; i < cbs.length; i++) {
+                if(cbs[i].type == 'checkbox') {
+                    cbs[i].checked = bx.checked;
+                }
+            }
+        }
+    </script>
+    <script>
+        var data = <%-JSON.stringify(object)%>;
+        $(document).ready(function(){
+            var current_user = $('#current_user').html();
+            $(function () {
+                $("#example").dataTable();
+                $(document).on('click',"#example tr",function(){
+                    var temp = $(this).attr("key");
+                    if(temp != current_user){
+                        data.forEach((value,key)=>{
+                            if(value.Taikhoan_TK == temp){
+                                if(value.ID_Loai_TK == "606d13b624b4e921544f7d61"){
+                                    $('#user_role').val("Nhân viên");
+                                }
+                                else{
+                                    $('#user_role').val("Khách hàng");
+                                }
+                                $('#admin_change_user_id').val(value.Taikhoan_TK);
+                                $('#admin_change_user_name').val(value.Ten_nguoidung);
+                                $('#admin_change_user_tel').val(value.Sdt_nguoidung);
+                                $('#admin_change_user_email').val(value.Email_nguoidung);
+                                $('#admin_change_user_address').val(value.Diachi_nguoidung);
+                                // Xử lý ngày sinh
+                                var user_date_temp = new Date(value.Ngaysinh_nguoidung.toString());
+                                var user_date = user_date_temp.getDate() + "-" + String(Number(user_date_temp.getMonth()) + 1) + "-" + user_date_temp.getFullYear();
+                                $('#admin_change_user_date').val(user_date);
+                                // Xử lý ngày tạo  
+                                var user_date_create_temp = new Date(value.Ngaytao_TK)
+                                var user_date_create = user_date_create_temp.getDate() + "-" + String(Number(user_date_create_temp.getMonth()) + 1) + "-" + user_date_create_temp.getFullYear();
+                                $('#admin_change_user_date_create').val(user_date_create);
+                                
+                                var $radios = $('input:radio[name=gender]');
+                                if(value.Gioitinh_nguoidung == "Nam"){
+                                    $radios.filter('[value=Nam]').prop('checked', true);
+                                }
+                                else if(value.Gioitinh_nguoidung == "Nữ"){
+                                    $radios.filter('[value=Nữ]').prop('checked', true);
+                                }
+                                else{
+                                    $radios.filter('[value=Khác]').prop('checked', true);
+                                }
+                            }
+                        });
+                    }
+                    else{
+                        alert("Bạn không thể thay đổi quyền của chính mình");
+                    }
+                });
+            });
+        });
+    </script>
+    <script type="text/javascript" src="/scripts/AdminManagement.js"></script>
+    <script type="text/javascript" src="/scripts/userinfor_update.js"></script>
+    <script type="text/javascript" src="/scripts/HandlerManageAccount.js"></script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+.category_container{
+    margin: 0;
+    width: auto;
+    text-align: center
+    
+}
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&display=swap');
+.category_container h4{
+    font-family: 'Roboto Mono', monospace;
+    margin: 10px 0;
+    margin-left: 20px;
+  
+}
+
+.branch_item{
+    width: 100px;
+    height: 50px;
+    margin: 10px 10px;
+}
+#branch_row{
+    width: 100%;
+    text-align: center;
+}
+.branch_row{
+    margin: 0 auto;
+}
+.brach_icon{
+    width: 100px;
+    height: 50px;
+}
+
+.filter_category_container{
+    text-align: center !important;
+    width: 87%;
+    margin: 20px auto;
+}
+
+
+.branch_filter{
+    background-color: white;
+    border: 1 solid black;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 0 auto !important;
+    text-align: left;
+}
+
+.branch_filter h5{
+    text-align: left;
+}
+
+.label_detail{
+    font-size: 18px;
+}
+.branch_filter hr{
+    width: 80%;
+    margin: 20px auto;
+    margin-bottom: 10px;
+}
+
+.main_category{
+    margin: 0 auto !important;
+}
+.mycard{
+    margin: 5px;
+    width: 31% !important;
+    text-align: left;
+    position: relative;
+}
+
+.mycard button{
+    font-size: 13px;
+}
+.mycard p{
+    text-align: left;
+    margin-bottom: 2px;
+    font-weight: normal;
+}
+.checkbox_price:checked , .checkbox_pin:checked{
+    background-color: tomato;
+}
+.btn_card{
+   
+    width: 80% !important;
+}

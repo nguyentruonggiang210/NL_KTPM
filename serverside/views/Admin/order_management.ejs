@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" type='text/css' href="/CSS/style.css">
+    <link rel="stylesheet" type='text/css' href="/CSS/user_infor.css">
+    <link rel="stylesheet" type='text/css' href="/CSS/admin.css">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/920d6b8d66.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+
+    <!--  -->
+    <title>DNG Mobile</title>
+
+</head>
+<body>
+    <%- include('../navbar.ejs') %>
+   
+    <div class="container">
+          <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+            <thead>
+              <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Duyệt</th>
+                <th scope="col">Trạng thái</th>
+                <th scope="col">Người mua</th>
+                <th scope="col">Hình thức thanh toán</th>
+                <th scope="col">Ngày mua</th>
+                <th scope="col" class="col col-md-1"></th>
+              </tr>
+            </thead>
+            <tbody id="table_order">
+                <% order.forEach(function(value,index){ %>
+                  <tr key="<%-value._id%>" data-toggle="modal" data-target=".bd-example-modal-lg">
+                    <td><%- index+1 %></td>
+                    <% if(value.Trangthai_DH == 'Chưa xác nhận'){ %>
+                      <td><input id="check_status_order" class="check_status_order" type="checkbox" key="<%-value._id%>"></td>
+                    <% } else{ %>
+                      <td><input id="check_status_order" class="check_status_order" type="checkbox" key="<%-value._id%>" checked></td>
+                    <% } %>
+                    
+                    <td><%-value.Trangthai_DH%></td>
+                    <td><%-value.user.Ten_nguoidung%></td>
+                    <td><%-value.paymenttype.Hinhthuc_TT%></td>
+                    <td><%-value.Ngaylap_DH%></td>
+                    <td><button  id="btn_delete_order" key="<%-value._id%>" class="btn btn-danger btn_delete_order">Xóa</button></td>
+                  </tr>
+                <% }) %>
+            </tfoot>
+          </table>
+          <div id="model_order_detail" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <table class="table ">
+                  <thead>
+                    <tr>
+                      <th scope="col col-md-1">STT</th>
+                      <th scope="col">Sản phẩm</th>
+                      <th scope="col col-md-1">Số lượng</th>
+                      <th scope="col">Thành tiền</th>
+                    </tr>
+                  </thead>
+                  <tbody id="table_order_detail">
+                    
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td>Tổng tiền</td>
+                      <td id="order_detail_total" colspan="3" style="text-align: center;">30000</td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#dtBasicExample').DataTable();
+            $('.dataTables_length').addClass('bs-select');
+        });
+    </script>
+    <script src="/scripts/CartHandle.js"></script>
+    <script>
+      
+      $('#table_order tr').on('click',GetOrderDetail);
+      var container_data = [];
+      var container_mobiles = [];
+      async function GetOrderDetail(){
+        var temp = document.getElementById('table_order_detail');
+        while (temp.firstChild) {
+          temp.removeChild(temp.lastChild);
+        }
+        var id_order = $(this).attr('key');
+        await $.ajax({
+          method:'POST',
+          url:'/admin/handler/getorderdetail',
+          data:{
+            id_order:id_order,
+          },
+          success:(data)=>{
+            var object = data.data;
+            container_data = object; 
+          },
+          error: (err)=>{
+            console.log(err);
+          }
+        });
+        
+        GetMobileDetail(container_data);
+        $('#model_order_detail').modal('toggle');
+      }
+      
+      async function GetMobileDetail(arr){
+        for(let j = 0; j < arr.length;j++){
+          await $.ajax({
+            method : 'POST',
+            url : '/admin/handler/getmobiledetail',
+            data:{
+              ID_DT: arr[j].mobiledetail.ID_DT,
+            },
+            success: (data) =>{
+              container_mobiles.push(data.data);
+            },
+            error : (err) =>{
+              console.log(err);
+            }
+          });
+        }
+        console.log(container_mobiles);
+        var total_price = 0;
+        for(let i = 0; i < container_data.length ; i++){
+          total_price += container_data[i].Thanhtien;
+          var tr = document.createElement('TR');
+          var stt = document.createElement('TD');
+          stt.innerHTML = i + 1;
+          var sanpham = document.createElement('TD');
+          sanpham.innerHTML = container_mobiles[i].Ten_DT;
+          var soluong = document.createElement('TD');
+          soluong.innerHTML = container_data[i].Soluong;
+          var thanhtien = document.createElement('TD');
+          thanhtien.innerHTML = container_data[i].Thanhtien + " ₫";
+          tr.appendChild(stt);
+          tr.appendChild(sanpham);
+          tr.appendChild(soluong);
+          tr.appendChild(thanhtien);
+          var temp = document.getElementById('table_order_detail');
+          temp.appendChild(tr);
+        }
+        document.getElementById('order_detail_total').innerHTML = DisplayPrice(total_price) + " ₫";
+      }
+     
+      // cập nhật trạng thái
+      $('.check_status_order').on('click',function(e){
+        e.stopPropagation();
+        var id_order = $(this).attr('key');
+        var status = $(this).prop("checked");
+        $.ajax({
+          url: '/admin/handler/checkorder',
+          method: 'PUT',
+          data:{
+            id_order: id_order,
+            status: status,
+          },
+          success: (data)=>{
+            if(data.mess == 'failed'){
+              alert('Lỗi trong quá trình thay đổi');
+            }
+            else{
+              window.location.reload();
+            }
+          },
+          error : (err)=>{
+            console.log(err);
+          }
+        });
+      }); 
+    
+      // xóa đơn hàng
+      var delete_status = true;
+      $('.btn_delete_order').on('click', async function(e){
+        e.stopPropagation();
+        var id_order = $(this).attr('key');
+        $.ajax({
+          method:'DELETE',
+          url: '/admin/handler/deleteorder',
+          data:{
+            id_order:id_order,
+          },
+          success : (data) => {
+            if(data.mess == 'failed'){
+              delete_status = false;
+              alert('Xóa không thành công');
+            }
+          },
+          error : (err)=>{
+            console.log(err);
+          }
+        });
+        if(delete_status == true){
+          $.ajax({
+          method:'DELETE',
+          url: '/admin/handler/deleteorderdetail',
+          data:{
+            id_order:id_order,
+          },
+          success : (data) => {
+            if(data.mess == 'failed'){
+              alert('Xóa không thành công');
+            }
+            else{
+              window.location.reload();
+            }
+          },
+          error : (err)=>{
+            console.log(err);
+          }
+        });
+        }
+      });
+    </script>
+    <script type="text/javascript" src="/scripts/AdminManagement.js"></script>
+    <script type="text/javascript" src="/scripts/userinfor_update.js"></script>
+    <script type="text/javascript" src="/scripts/HandlerManageAccount.js"></script>
+</body>
+</html>

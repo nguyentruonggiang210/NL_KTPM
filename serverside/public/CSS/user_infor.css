@@ -1,0 +1,17 @@
+.user_infor_lg a{
+    color:black  !important;
+    text-decoration: none;
+}
+
+.user_infor_lg a:hover{
+    text-decoration: underline;
+}
+
+.user_infor_lg li{
+    margin: 5px 0;
+}
+
+.userinforform label{
+    margin: 7px 0;
+}
+.customer_order_detail:hover{cursor: pointer;}

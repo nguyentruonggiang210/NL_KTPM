@@ -1,0 +1,302 @@
+
+<script type="text/javascript" src="/Library/js/jquery.cookie.js"></script>
+<div class="container" style="border-radius: 0 0 10px 10px; padding: 0;">
+    <div class="header">
+        <!--title-->
+        <div class="row title">
+            <!--logo-->
+            <div class="col-md-2">
+                <div class="row">
+                    <button onclick="location.href='/';" class=" btn mylogo">
+                        <img width="90px" height="60px" src="/images/dng_logo.png"/>
+                    </button>
+                </div>
+            </div>
+            <!--search-->
+            <div class="col-md-5">
+                <form action="">
+                    <div style="position: relative;" class="input-group mb-4">
+                        <input id="search_input" onclick="myFunction(this)" onkeyup="myFunction(this)" type="search" placeholder="Nhập sản phẩm muốn tìm" aria-describedby="button-addon5" class="form-control">
+                        <ul id="search_result"></ul>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-md-1"></div>
+            <div class="col-md-4">
+                <div class="row account_cart">     
+                    <div class="col-md-4 mobile_area">
+                        <i onclick="window.location.href='/category';" class="fas fa-mobile myicon"></i>
+                        <div style="overflow: hidden;white-space: nowrap;"><span style="font-size: 14px;">Danh mục</span></div>
+                    </div>
+                     <!--Dang nhap-->
+                    <div class="col-md-6 account_area">
+                            <% if(cookie){ %>
+                                <div style="padding: 0;" onclick="DisplayInforLogout()">
+                                    <i class="fas fa-user myicon"></i>
+                                    <div id="render_username" class="row"><span style="font-size: 14px;"><%= cookie %></span></div>
+                                </div>
+                                <ul id="infor_logout_list" style="position: absolute" class="list-group">
+                                    <% if(admin == '0'){ %>
+                                        <li class="list-group-item"><a href="/admin/accountmanagement"><i class="fas fa-info-circle"></i> &nbsp; Quản lí tài khoản</a></li>
+                                        <li class="list-group-item"><a href="/admin/productmanagement"><i class="fas fa-info-circle"></i> &nbsp; Quản lí hàng hóa</a></li>
+                                        <li class="list-group-item"><a href="/admin/displayorder"><i class="fas fa-info-circle"></i> &nbsp; Quản lí đơn hàng</a></li>
+                                    <% } else if(admin == '1'){ %>
+                                        <li class="list-group-item"><a href="/admin/productmanagement"><i class="fas fa-info-circle"></i> &nbsp; Quản lí hàng hóa</a></li>
+                                        <li class="list-group-item"><a href="/admin/displayorder"><i class="fas fa-info-circle"></i> &nbsp; Quản lí đơn hàng</a></li>
+                                        <% } %>
+                                    <li class="list-group-item"><a href="/user/information/user_info"><i class="fas fa-info-circle"></i> &nbsp; Thông tin cá nhân</a></li>
+                                    <li class="list-group-item"><a href="/user/handleLogout"><i class="fas fa-sign-out-alt"></i> &nbsp; Đăng xuất</a></li>
+                                </ul>
+                                <% } 
+                                else{ %>  
+                                <div style="padding: 0;" data-bs-toggle="modal" data-bs-target="#login-modal">
+                                    <i class="fas fa-sign-in-alt myicon"></i>
+                                    <div style="font-size: 14px;" id="render_login" class="row"><span>Đăng Nhập</span></div>
+                                </div>
+                                
+                             <% } %>
+                       
+                    </div>
+                    <% if(admin == 0 || admin == 1){ %>
+                        <div class="col-md-2 bell_icon" onclick="window.location.href='/admin/displayorder';"><i class="fas fa-bell fa-lg"><span id="quantity_inbell">0</span></i></div>
+                    <% } else{ %>
+                        <div class="col-md-2 cart_icon" onclick="window.location.href = '/cart';"><i class="fas fa-shopping-cart myicon"><span id="quantity_incart">0</span></i></div>
+                    <% } %>
+                    
+                    <!--Pop up login-->
+                    <div class="modal fade" id="login-modal" tabindex="-1" aria-labelledby="dangnhap" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="Login-Lable">ĐĂNG NHẬP</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="loginForm">
+                                        <div class="form-group">
+                                            <label>Tài Khoản:</label>
+                                            <input id="txtID" type="text" class="form-control" name="user_id" id="taikhoan-dangnhap" tabindex="1">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Mật Khẩu:</label>
+                                            <input id="txtPass" type="password" class="form-control" name="user_password" id="matkhau-dangnhap" tabindex="2">
+                                        </div>
+                                        <a id="register_popup" class="text-info text-decoration-none" data-bs-toggle="modal" data-bs-target="#signup-modal">Đăng ký tài khoản mới</a>
+                                        <div class="modal-footer">
+                                            <button id="btnLogin" type="submit" class="btn btn-success" tabindex="3">Đăng Nhập</button>
+                                            <button type="reset" class="btn btn-danger" data-bs-dismiss="modal">Hủy Bỏ</button>
+                                        </div>
+                                       
+                                        
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Pop up sign up-->
+                    <div class="modal fade" id="signup-modal" tabindex="-1" aria-labelledby="dangky" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="Login-Lable">ĐĂNG KÝ TÀI KHOẢN</h4>
+                                    <button id="closeRegisterForm" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="res_form">
+                                        <!-- ID -->
+                                        <div class="row form-group">
+                                            <label class="col-md-3 text-info input_res" for="res_user_id">Tên đăng nhập:</label>
+                                            <input required type="text" class="form-control col-md-8 w-auto input_res" name="user_id" id="res_user_id" tabindex="1">
+                                            <p class="res_notetification" id="res_note_user_id"></p>
+                                        </div>
+                                        <!-- Password -->
+                                        <div class="row form-group">
+                                            <label class="col-md-3 text-info label_res" for="res_user_password">Mật khẩu:</label>
+                                            <input required type="password" class="form-control col-md-8 w-auto input_res" name="user_password" id="res_user_password" tabindex="1">
+                                        </div>
+                                         <!-- Confirm Password -->
+                                         <div class="row form-group">
+                                            <label class="col-md-3 text-info label_res" for="res_cf_user_password">Xác nhận mật khẩu:</label>
+                                            <input required type="password" class="form-control col-md-8 w-auto input_res" name="" id="res_cf_user_password" tabindex="1">
+                                            <p class="res_notetification" id="res_note_user_password"></p>
+                                        </div>
+                                        <!--Ho ten-->
+                                        <div class="row form-group">
+                                            <label class="col-md-3 text-info label_res" for="res_user_name">Họ Tên:</label>
+                                            <input required type="text" class="form-control col-md-8 w-auto input_res" name="hoten" id="res_user_name" tabindex="1">
+                                        </div>
+                                        <!--Ngay sinh-->
+                                        <div class="row mt-2 ngaysinh form-group">
+                                            <label class="text-info">Ngày Sinh: </label>
+                                            <!--Ngay-->
+                                            <div class="form-group">
+                                                <select id="select_date"  class="custom-select date_select" name="" tabindex="2">
+                                                        
+                                                </select>
+                                                <select id="select_month"  class="custom-select date_select" name="" tabindex="4">
+
+                                                </select>
+                                                <select id="select_year"  class="custom-select date_select" name="" tabindex="3">
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <!--Gioi tinh-->
+                                        <div class="row mt-2 form-group">
+                                            <label class="col-md-3 text-info">Giới tính:</label>
+                                            <div class="form-check col-md-2" style="text-align: center;">
+                                                <input required  type="radio" name="gender" id="gioitinhnam-dangky" value="Nam" tabindex="5" checked>
+                                                <label style="text-align: center;" class="form-check-label" for="exampleRadios1">
+                                                Nam
+                                                </label>
+                                            </div>
+                                            <div class="form-check col-md-2" style="text-align: center;">
+                                                <input required  type="radio" name="gender" id="gioitinhnu-dangky" value="Nữ" tabindex="6">
+                                                <label style="text-align: center;" class="form-check-label" for="exampleRadios2">
+                                                Nữ
+                                                </label>
+                                            </div>
+                                            <div class="form-check col-md-2" style="text-align: center;">
+                                                <input required  type="radio" name="gender" id="gioitinhkhac-dangky" value="Khác" tabindex="6">
+                                                <label style="text-align: center;" class="form-check-label" for="exampleRadios2">
+                                                Khác
+                                                </label>
+                                            </div>
+                                        </div>
+                                         <!-- Hình ảnh -->
+                                         <div class="row form-group mt-2">
+                                            <label class="col-md-3 text-info" for="res_user_image">Ảnh đại diện</label>
+                                            <input type="file" accept="image/x-png,image/gif,image/jpeg" class="form-control col-md-8 w-auto" name="user_image" id="res_user_image" tabindex="8">
+                                        </div>
+                                         <!-- Tel -->
+                                        <div class="row form-group mt-2">
+                                            <label class="col-md-3 text-info" for="res_user_tel">Số điện thoại:</label>
+                                            <input type="text" class="form-control col-md-8 w-auto" name="user_tel" id="res_user_tel" tabindex="8">
+                                        </div>
+
+                                        <!-- Email -->
+                                        <div class="row form-group mt-2">
+                                            <label class="col-md-3 text-info" for="res_user_email">Email</label>
+                                            <input type="email" class="form-control col-md-8 w-auto" name="user_email" id="res_user_email" tabindex="7">
+                                        </div>
+                                        <!-- Address -->
+                                        <div class="row form-group mt-2">
+                                            <label class="col-md-3 text-info" for="res_user_address">Địa chỉ:</label>
+                                            <input required type="text" class="form-control col-md-8 w-auto" name="user_address" id="res_user_address" tabindex="7">
+                                        </div>
+
+                                        <!--submit-->
+                                        <div class="row mt-2">
+                                            <div class="modal-footer">
+                                                <div class="btn-group-toggle" data-toggle="buttons">
+                                                    <button type="submit" class="btn btn-success" tabindex="9">Đăng Ký</button>
+                                                    <button type="reset" class="btn btn-outline-danger" data-bs-dismiss="modal">Hủy Bỏ</button>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    </form>
+                                </div>
+
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+<!-- Tạo giỏ hàng rỗng hoặc load lại giỏ hàng đã có -->
+<script>
+    class Cart{
+        constructor(arr_product,arr_quantity){
+            this.arr_product = arr_product;
+            this.arr_quantity = arr_quantity;
+        }
+        AddNew(item,quantity){
+            var stt = true;
+            this.arr_product.forEach(function(e){
+                if(e === item) stt = false;
+            });
+            if(stt){
+                this.arr_product.push(item);
+                this.arr_quantity.push(quantity);
+            }
+            else{
+                var index =  this.arr_product.indexOf(item);
+                this.arr_quantity[index] += quantity;
+            }
+            
+        }
+        ChangeExistItem(item,quantity){
+            var index = this.arr_product.indexOf(item);
+            this.arr_quantity[index] = quantity;
+        }
+        DeleteItem(item){
+            var index = this.arr_product.indexOf(item);
+            if(index > -1){
+                this.arr_product.splice(index,1);
+                this.arr_quantity.splice(index,1);
+            }
+        }
+        toString() {
+            this.arr_product.forEach(function(value,index){
+                console.log(value+" : "+this.arr_quantity[index]);
+            });
+        }
+    }
+    
+    var user = '<%-cookie%>';
+    var item = JSON.parse(localStorage.getItem(user));
+    if(item === null){
+        var cart = new Cart([],[]);
+        localStorage.setItem(user,JSON.stringify(cart));
+    }
+    else{
+       try{
+            var num_item = item.arr_product.length;
+            $('#quantity_incart').html(num_item);
+       }
+       catch{}
+    }
+</script>
+<!-- Kiểm tra đơn hàng mới -->
+<script src="/scripts/socket.io.js"></script>
+<script>
+    var neworder = JSON.parse(localStorage.getItem('neworder'));
+    var quantity;
+    if(neworder === null){
+        quantity = 0;
+    }
+    else{
+        quantity = neworder;
+    }
+    $('#quantity_inbell').html(quantity);
+    var admin = "<%- admin %>";
+    if(admin == 1 || admin == 0){
+        const ws = new WebSocket('ws://localhost:9898/');
+        ws.onopen = function() {
+            console.log('WebSocket Client Connected');
+        };
+        setInterval(function(){
+            ws.send('new_order');
+        },10000);
+
+        setTimeout(function(){
+            ws.onmessage = function(e) {
+                localStorage.setItem("neworder",e.data);
+                var neworder = JSON.parse(localStorage.getItem('neworder'));
+               
+                $('#quantity_inbell').html(neworder);
+            };
+        },0);
+    }
+    
+</script>
+<script src="/scripts/NavbarHandler.js"></script>
+<script src="/scripts/main.js"></script>
+<script type="text/javascript" src="/scripts/LoginHandle.js"></script>
+<script type="text/javascript" src="/scripts/RegisterHandle.js"></script>
